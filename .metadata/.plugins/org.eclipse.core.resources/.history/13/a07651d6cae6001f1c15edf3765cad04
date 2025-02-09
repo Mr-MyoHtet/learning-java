@@ -1,0 +1,9 @@
+package com.query.entity;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class Section {
+
+}
