@@ -111,15 +111,9 @@ public class StreamLearning {
 	    Optional<Integer> max = number.stream().reduce(Integer::max);
 	    System.out.println(max);
 	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-	    
-		 
+       //MapToInt
+	 long mapToIntResult =menu.stream().filter(m -> m.getType().equals(StreamLearning.Type.MEAT)).mapToInt(c -> c.getCalories()).sum();
+	 System.out.println(mapToIntResult);
 		
 	}
 
