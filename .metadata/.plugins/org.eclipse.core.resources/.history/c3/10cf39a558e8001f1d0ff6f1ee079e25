@@ -1,0 +1,21 @@
+package com.query.entity;
+
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import lombok.Data;
+
+@Data
+@Entity
+public class Registration {
+	
+	private RegistrationPK id;
+	@ManyToOne
+	private Student student;
+	@ManyToOne
+	private Section section;
+	private LocalDateTime registAt;
+	
+
+}

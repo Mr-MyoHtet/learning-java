@@ -1,0 +1,7 @@
+package com.query.entity;
+
+@Data
+@Entity
+public class Registration {
+
+}

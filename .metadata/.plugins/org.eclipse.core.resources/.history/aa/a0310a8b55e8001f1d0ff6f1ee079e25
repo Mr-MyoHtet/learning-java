@@ -1,0 +1,5 @@
+package com.query.entity.convector;
+
+public class DaysConvector {
+
+}

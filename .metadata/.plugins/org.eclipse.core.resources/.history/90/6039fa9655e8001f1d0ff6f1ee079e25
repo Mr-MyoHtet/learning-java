@@ -1,0 +1,22 @@
+package com.query.entity.convector;
+
+import java.time.DayOfWeek;
+import java.util.List;
+
+import jakarta.persistence.AttributeConverter;
+
+public class DaysConvector implements AttributeConverter <List<DayOfWeek>,String> {
+
+	@Override
+	public String convertToDatabaseColumn(List<DayOfWeek> attribute) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<DayOfWeek> convertToEntityAttribute(String dbData) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

@@ -4,6 +4,9 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.query.entity.convector.DaysConvector;
+
+import jakarta.persistence.Convert;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -19,6 +22,8 @@ public class Section {
     @JoinColumn(name="courseId",insertable=false,updatable=false)
 	private Course course;
     
+    //@ElementCollection
+    @Convert(converter=DaysConvector.class)
 	private List<DayOfWeek> days;
 	private String startTime;
 	private String endTime;
