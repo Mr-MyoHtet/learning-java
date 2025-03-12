@@ -16,14 +16,15 @@ import lombok.Data;
 @Data
 @Entity
 public class Section {
-    @EmbeddedId
+	@EmbeddedId
 	private SectionPK id;
-    @ManyToOne
-    @JoinColumn(name="courseId",insertable=false,updatable=false)
+
+	@ManyToOne
+	@JoinColumn(name = "courseId", insertable = false, updatable = false)
 	private Course course;
-    
-    //@ElementCollection
-    @Convert(converter=DaysConvector.class)
+
+	// @ElementCollection
+	@Convert(converter = DaysConvector.class)
 	private List<DayOfWeek> days;
 	private String startTime;
 	private String endTime;
@@ -96,6 +97,15 @@ public class Section {
 
 	public void setFees(int fees) {
 		this.fees = fees;
+	}
+
+	@Override
+	public String toString() {
+		return "Section [id=" + id + ", course=" + course + ", days=" + days + ", startTime=" + startTime + ", endTime="
+				+ endTime + ", endAt=" + endAt + ", fees=" + fees + ", getId()=" + getId() + ", getCourse()="
+				+ getCourse() + ", getDays()=" + getDays() + ", getStartTime()=" + getStartTime() + ", getEndTime()="
+				+ getEndTime() + ", getEndAt()=" + getEndAt() + ", getFees()=" + getFees() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 
 }

@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 @Entity
+@Data
 public class Course {
 
 	@Id
@@ -14,6 +16,10 @@ public class Course {
 	private String name;
 	private int hours;
 	private int fees;
+	
+	public Course() {
+	}
+
 
 	public Course(int id, String name, int hours, int fees) {
 		super();
@@ -55,9 +61,12 @@ public class Course {
 		this.fees = fees;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Course [id=" + id + ", name=" + name + ", hours=" + hours + ", fees=" + fees + "]";
 	}
+
+
 
 }

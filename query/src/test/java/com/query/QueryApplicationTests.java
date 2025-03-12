@@ -9,5 +9,7 @@ class QueryApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+	
+	
 
 }

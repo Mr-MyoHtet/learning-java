@@ -3,8 +3,11 @@ package Stream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
+
+import java.time.DayOfWeek;
 
 public class StreamPractice {
 	
@@ -85,6 +88,19 @@ public class StreamPractice {
          Optional<Transaction> result11 = transactions.stream().max(comparing(Transaction::getValue));
          System.out.println(result11);
  		//=========================================================================================
+
+         List<DayOfWeek> days = List.of(DayOfWeek.MONDAY, DayOfWeek.WEDNESDAY, DayOfWeek.FRIDAY);
+
+         // Convert the list into a comma-separated string
+         String result = days.stream()
+                 .map(DayOfWeek::name)  // Convert enum to String
+                 .collect(Collectors.joining(","));  // Join with commas
+
+         // Print the result
+         System.out.println(result); 
+         
+         System.out.println(days);
+         System.out.println(result); 
 
 
 		

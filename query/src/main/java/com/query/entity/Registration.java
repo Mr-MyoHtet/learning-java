@@ -11,8 +11,10 @@ import lombok.Data;
 @Data
 @Entity
 public class Registration {
+	
     @EmbeddedId
 	private RegistrationPK id;
+    
 	@ManyToOne
 	@JoinColumn(name = "studentId", insertable=false,updatable=false)
 	private Student student;
