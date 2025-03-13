@@ -26,5 +26,13 @@ public class StudentService {
 	public void insertStudent(Student student) {
 		studentMapper.insertStudent(student);
 	}
+	
+	public int updateStudent(Student student) {
+		return studentMapper.updateStudent(student);
+	}
+	
+	public Student findStudentWithAddress(Integer id) {
+		return studentMapper.findStudentWithAddress(id);
+	}
 
 }

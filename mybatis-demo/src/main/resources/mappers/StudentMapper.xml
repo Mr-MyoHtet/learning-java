@@ -7,13 +7,48 @@
 SELECT * FROM student;
 </select>
 
-<select id="findStudentById" parameterType="int" resultType="com.mybatis.model.Student">
+<resultMap id="studentResultMap" type="com.mybatis.model.Student">
+<id  property="studId" column="stud_id"/>
+<result property="name" column="name"/>
+<result property="email" column="name"/>
+<result property="phone" column="phone"/>
+<result property="dob" column="dob"/>
+<result property="bio" column="bio"/>
+</resultMap>
+<select id="findStudentById" parameterType="int" resultMap="studentResultMap">
 SELECT * FROM student where stud_id=#{id}
 </select>
 
-<insert id="insertStudent" parameterType="com.mybatis.model.Student" useGeneratedKeys="true" keyProperty="stud_id">
-   INSERT INTO student (stud_id, name, email, phone, dob, bio)
-   VALUES(#{stud_id}, #{name}, #{email}, #{phone}, #{dob}, #{bio})
+<insert id="insertStudent" parameterType="com.mybatis.model.Student" useGeneratedKeys="true" keyProperty="studId">
+   INSERT INTO student (stud_id, name, email, phone, dob, bio, addr_id)
+   VALUES(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{bio}, #{address.addrId})
 </insert>
+
+<update id="updateStudent" parameterType="com.mybatis.model.Student">
+UPDATE student SET name=#{name},email=#{email},phone=#{phone},dob=#{dob},bio=#{bio}
+WHERE stud_id=#{stud_id}
+</update>
+
+<resultMap id="addressResult" type="com.mybatis.model.Address">
+<id property="addrId" column="addr_id"/>
+<result  property="street" column="street"/>
+<result  property="city" column="city"/>
+<result property="state" column="state"/>
+<result  property="zip" column="zip"/>
+<result  property="country" column="country"/>
+</resultMap>
+<resultMap id="studentResult" type="com.mybatis.model.Student">
+<id  property="studId" column="stud_id"/>
+<result property="name" column="name"/>
+<result property="email" column="email"/>
+<result property="phone" column="phone"/>
+<result property="dob" column="dob"/>
+<result property="bio" column="bio"/>
+<association property="address" resultMap="addressResult"></association>
+</resultMap>
+<select id="findStudentWithAddress" parameterType="int" resultMap="studentResult">
+SELECT stud_id,name,email,phone,dob,bio,street,city,state,zip,country from student s join address a
+on s.addr_id = a.addr_id where stud_id= #{id}
+</select>
 
 </mapper>

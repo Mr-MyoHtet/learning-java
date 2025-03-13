@@ -9,9 +9,13 @@ import com.mybatis.model.Student;
 @Mapper
 public interface StudentMapper {
 	List<Student> getAllStudent();
-	
+
 	Student findStudentById(Integer id);
+
+	void insertStudent(Student student);
+
+	int updateStudent(Student student);
 	
-	void insertStudent (Student student);
-	
+	Student findStudentWithAddress(Integer id);
+
 }
