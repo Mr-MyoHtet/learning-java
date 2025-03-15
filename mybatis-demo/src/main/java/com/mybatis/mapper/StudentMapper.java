@@ -1,9 +1,11 @@
 package com.mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mybatis.model.Course;
 import com.mybatis.model.Student;
 import com.mybatis.model.Tutors;
 
@@ -17,8 +19,14 @@ public interface StudentMapper {
 
 	int updateStudent(Student student);
 	
+	//one-to-one
 	Student findStudentWithAddress(Integer id);
 	
+	//one-to-many
 	List<Tutors> findTutorById(Integer id);
+	
+	//Dynnamic query if condition
+	List<Course>  searchCourses(Map<String,Object> map);
+	
 
 }

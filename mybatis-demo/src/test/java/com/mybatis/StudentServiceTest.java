@@ -1,14 +1,18 @@
 package com.mybatis;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mybatis.model.Address;
+import com.mybatis.model.Course;
 import com.mybatis.model.Student;
 import com.mybatis.model.Tutors;
 import com.mybatis.services.StudentService;
@@ -58,17 +62,47 @@ public class StudentServiceTest {
 //		System.out.println(student_with_address);
 //	}
 
+//	@Test
+//	void findTutorById() {
+//		List<Tutors> tutorsResult = studentService.findTutorById(2);
+//		System.out.println(tutorsResult);
+//
+//		String name = tutorsResult.stream()
+//				.filter(t -> t.getAddress() != null && t.getAddress().getCity().equals("CHICAGO")).map(Tutors::getName) 
+//				.findFirst() // Get the first match (if any)
+//				.orElse("No tutor found for CHICAGO"); // Default if no match is found
+//
+//		System.out.println(name);
+//	}
+//	
 	@Test
-	void findTutorById() {
-		List<Tutors> tutorsResult = studentService.findTutorById(2);
-		System.out.println(tutorsResult);
-
-		String name = tutorsResult.stream()
-				.filter(t -> t.getAddress() != null && t.getAddress().getCity().equals("CHICAGO")).map(Tutors::getName) 
-				.findFirst() // Get the first match (if any)
-				.orElse("No tutor found for CHICAGO"); // Default if no match is found
-
-// Print the name of the tutor found
-		System.out.println(name);
+	void searchCourses() {
+    Map<String,Object> map = new HashMap<String,Object>();
+    map.put("tutorId", 2);
+    map.put("CourseName", "%java%");
+    map.put("description", "Java EE Course");
+    map.put("startDate", "2025-03-20");
+    List<Course> courses = studentService.searchCourses(map);
+    for(Course course :courses) {
+    	System.out.println(course);
+    }
+    
+	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

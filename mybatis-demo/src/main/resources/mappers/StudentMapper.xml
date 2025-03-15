@@ -88,4 +88,19 @@ WHERE t.tutor_id = #{tutorId}
 <!-- Couse and Tutor  start-->
 
 
+<!--  Mybatis Dynamic Query for search course start-->
+<select id="searchCourses" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course WHERE tutor_id=#{tutorId}
+<if test="courseName != null ">
+AND name LIKE #{courseName}
+</if>
+<if test="description !=null">
+AND description =#{description}
+</if>
+<if test="startDate != null">
+AND start_date >= #{startDate}
+</if>
+</select>
+<!--  Mybatis Dynamic Query for search course end-->
+
 </mapper>

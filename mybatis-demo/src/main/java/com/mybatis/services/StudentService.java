@@ -1,11 +1,13 @@
 package com.mybatis.services;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mybatis.mapper.StudentMapper;
+import com.mybatis.model.Course;
 import com.mybatis.model.Student;
 import com.mybatis.model.Tutors;
 
@@ -39,6 +41,10 @@ public class StudentService {
 
 	public List<Tutors> findTutorById(Integer id) {
 		return studentMapper.findTutorById(id);
+	}
+	
+	public List<Course> searchCourses(Map<String,Object> map){
+		return studentMapper.searchCourses(map);
 	}
 
 }
