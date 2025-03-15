@@ -1,6 +1,5 @@
 package com.mybatis;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -11,12 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mybatis.model.Address;
 import com.mybatis.model.Student;
+import com.mybatis.model.Tutors;
 import com.mybatis.services.StudentService;
 
 @SpringBootTest
 public class StudentServiceTest {
 
-	
 	@Autowired
 	private StudentService studentService;
 
@@ -27,14 +26,14 @@ public class StudentServiceTest {
 //		System.out.println(result);
 //		
 //	}
-	
+
 //	@Test
 //	void findStudentById() {
 //		
 //		Student student_id = studentService.findStudentById(3);
 //		System.out.println(student_id);
 //	}
-	
+
 //	@Test
 //	void insertStudetn() {
 //        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -52,10 +51,24 @@ public class StudentServiceTest {
 //		stu.setAddress(addr);
 //		studentService.insertStudent(stu);
 //	}
-	
+
+//	@Test
+//	void findStudentWithAddress() {
+//		Student student_with_address = studentService.findStudentWithAddress(8);
+//		System.out.println(student_with_address);
+//	}
+
 	@Test
-	void findStudentWithAddress() {
-		Student student_with_address = studentService.findStudentWithAddress(8);
-		System.out.println(student_with_address);
+	void findTutorById() {
+		List<Tutors> tutorsResult = studentService.findTutorById(2);
+		System.out.println(tutorsResult);
+
+		String name = tutorsResult.stream()
+				.filter(t -> t.getAddress() != null && t.getAddress().getCity().equals("CHICAGO")).map(Tutors::getName) 
+				.findFirst() // Get the first match (if any)
+				.orElse("No tutor found for CHICAGO"); // Default if no match is found
+
+// Print the name of the tutor found
+		System.out.println(name);
 	}
 }

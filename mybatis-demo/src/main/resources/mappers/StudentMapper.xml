@@ -29,14 +29,16 @@ UPDATE student SET name=#{name},email=#{email},phone=#{phone},dob=#{dob},bio=#{b
 WHERE stud_id=#{stud_id}
 </update>
 
+<!-- Address and Student start-->
 <resultMap id="addressResult" type="com.mybatis.model.Address">
 <id property="addrId" column="addr_id"/>
 <result  property="street" column="street"/>
 <result  property="city" column="city"/>
-<result property="state" column="state"/>
+<result  property="state" column="state"/>
 <result  property="zip" column="zip"/>
 <result  property="country" column="country"/>
 </resultMap>
+
 <resultMap id="studentResult" type="com.mybatis.model.Student">
 <id  property="studId" column="stud_id"/>
 <result property="name" column="name"/>
@@ -46,9 +48,44 @@ WHERE stud_id=#{stud_id}
 <result property="bio" column="bio"/>
 <association property="address" resultMap="addressResult"></association>
 </resultMap>
+
 <select id="findStudentWithAddress" parameterType="int" resultMap="studentResult">
 SELECT stud_id,name,email,phone,dob,bio,street,city,state,zip,country from student s join address a
 on s.addr_id = a.addr_id where stud_id= #{id}
 </select>
+<!-- Address and Student start-->
+
+
+<!-- Couse and Tutor  start-->
+<resultMap id="courseResult" type="com.mybatis.model.Course">
+<id property="courseId" column="course_id"></id>
+<result property="name" column="name"/>
+<result property="description" column="description"/>
+<result property="startDate" column="start_date"/>
+<result property="endDate" column="end_date"/>
+</resultMap>
+
+<resultMap id="tutorResult" type="com.mybatis.model.Tutors">
+<id property="tutorId" column="tutor_id"></id>
+<result  property="name" column="name"/>
+<result  property="email" column="email"/>
+<result  property="phone" column="phone"/>
+<!-- tutors and addresss is one to one relationshi-->
+<association property="address" resultMap="addressResult"></association>
+<!-- tutors and course is one to many relationship-->
+<collection property="course" resultMap="courseResult"></collection>
+</resultMap>
+
+<select id="findTutorById" parameterType="int" resultMap="tutorResult">
+SELECT t.tutor_id, t.name AS Tutor_Name, t.email, t.phone, 
+       c.course_id, c.name, c.description, c.start_date, c.end_date, 
+      s.addr_id, s.city
+FROM tutors AS t  
+LEFT JOIN address s ON t.addr_id = s.addr_id  
+LEFT JOIN course c ON t.tutor_id = c.tutor_id  
+WHERE t.tutor_id = #{tutorId}
+</select>
+<!-- Couse and Tutor  start-->
+
 
 </mapper>

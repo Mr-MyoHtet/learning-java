@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mybatis.mapper.StudentMapper;
 import com.mybatis.model.Student;
+import com.mybatis.model.Tutors;
 
 @Service
 public class StudentService {
@@ -26,13 +27,18 @@ public class StudentService {
 	public void insertStudent(Student student) {
 		studentMapper.insertStudent(student);
 	}
-	
+
 	public int updateStudent(Student student) {
 		return studentMapper.updateStudent(student);
 	}
-	
+
 	public Student findStudentWithAddress(Integer id) {
 		return studentMapper.findStudentWithAddress(id);
+
+	}
+
+	public List<Tutors> findTutorById(Integer id) {
+		return studentMapper.findTutorById(id);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mybatis.model.Student;
+import com.mybatis.model.Tutors;
 
 @Mapper
 public interface StudentMapper {
@@ -17,5 +18,7 @@ public interface StudentMapper {
 	int updateStudent(Student student);
 	
 	Student findStudentWithAddress(Integer id);
+	
+	List<Tutors> findTutorById(Integer id);
 
 }
