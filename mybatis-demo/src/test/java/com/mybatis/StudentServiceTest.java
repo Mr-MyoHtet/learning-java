@@ -75,34 +75,31 @@ public class StudentServiceTest {
 //		System.out.println(name);
 //	}
 //	
+//	@Test
+//	void searchCourses() {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("tutorId", 2);
+//		map.put("CourseName", "%java%");
+//		map.put("description", "Java EE Course");
+//		map.put("startDate", "2025-03-20");
+//		List<Course> courses = studentService.searchCourses(map);
+//		for (Course course : courses) {
+//			System.out.println(course);
+//		}
+//
+//	}
+
 	@Test
-	void searchCourses() {
-    Map<String,Object> map = new HashMap<String,Object>();
-    map.put("tutorId", 2);
-    map.put("CourseName", "%java%");
-    map.put("description", "Java EE Course");
-    map.put("startDate", "2025-03-20");
-    List<Course> courses = studentService.searchCourses(map);
-    for(Course course :courses) {
-    	System.out.println(course);
-    }
-    
-	
+	void searchCoursesUsingChoose() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//map.put("searchBy", "Tutor");
+		//map.put("tutorId", 2);
+		map.put("searchBy", "CourseName");
+		map.put("CourseName", "%java%");
+		List<Course> courseResult = studentService.searchCoursesUsingChoose(map);
+		for (Course course : courseResult) {
+			System.out.println(course);
+		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

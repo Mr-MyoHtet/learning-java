@@ -103,4 +103,22 @@ AND start_date >= #{startDate}
 </select>
 <!--  Mybatis Dynamic Query for search course end-->
 
+<!--Mybatis Dynamic Query for using choose statement start-->
+<select id="searchCoursesUsingChoose" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course 
+<choose>
+<when test="searchBy == 'Tutor'">
+WHERE tutor_id =#{tutorId}
+</when>
+<when test="searchBy =='CourseName'">
+WHERE name LIKE #{CourseName}
+</when>
+<otherwise>
+WHERE tutor start_date &gt;=now()
+</otherwise>
+</choose>
+</select>
+<!--Mybatis Dynamic Query for using choose statement end-->
+
+
 </mapper>

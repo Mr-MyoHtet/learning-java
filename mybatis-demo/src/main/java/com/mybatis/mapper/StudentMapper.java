@@ -28,5 +28,8 @@ public interface StudentMapper {
 	//Dynnamic query if condition
 	List<Course>  searchCourses(Map<String,Object> map);
 	
+	//Dynamic query using choose it like switch in java
+	List<Course> searchCoursesUsingChoose(Map<String,Object> map);
+	
 
 }

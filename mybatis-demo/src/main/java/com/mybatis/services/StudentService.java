@@ -46,5 +46,9 @@ public class StudentService {
 	public List<Course> searchCourses(Map<String,Object> map){
 		return studentMapper.searchCourses(map);
 	}
+	
+	public List<Course> searchCoursesUsingChoose(Map<String,Object> map){
+		return studentMapper.searchCoursesUsingChoose(map);
+	}
 
 }
