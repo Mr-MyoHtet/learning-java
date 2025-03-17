@@ -50,5 +50,9 @@ public class StudentService {
 	public List<Course> searchCoursesUsingChoose(Map<String,Object> map){
 		return studentMapper.searchCoursesUsingChoose(map);
 	}
+	
+	public List<Course> searchCourseByWhere(Map<String,Object> map){
+		return studentMapper.searchCourseByWhere(map);
+	}
 
 }

@@ -89,6 +89,7 @@ WHERE t.tutor_id = #{tutorId}
 
 
 <!--  Mybatis Dynamic Query for search course start-->
+<!-- tutor_id is present query will be fail-->
 <select id="searchCourses" parameterType="hashMap" resultMap="courseResult">
 SELECT * FROM course WHERE tutor_id=#{tutorId}
 <if test="courseName != null ">
@@ -120,5 +121,25 @@ WHERE tutor start_date &gt;=now()
 </select>
 <!--Mybatis Dynamic Query for using choose statement end-->
 
+<!--Mybatis Dynamic Query by Where condition start -->
+  <!--If no condition are provided ,return select * from course -->
+<select id="searchCourseByWhere" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course 
+<where>
+ <if test="tutorId != null ">
+tutor_id =#{tutorId}
+</if>
+<if test="courseName !=null ">
+AND name like #{courseName}
+</if>
+<if test="startDate != null ">
+AND start_date = #{startDate}
+</if>
+<if test="endDate != null">
+AND end_date =#{endDate}
+</if>
+</where>
+</select>
+<!--Mybatis Dynamic Query by Where condition end -->
 
 </mapper>

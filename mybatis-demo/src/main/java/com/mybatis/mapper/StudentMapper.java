@@ -31,5 +31,8 @@ public interface StudentMapper {
 	//Dynamic query using choose it like switch in java
 	List<Course> searchCoursesUsingChoose(Map<String,Object> map);
 	
+	
+	//where condition
+	List<Course> searchCourseByWhere(Map<String,Object> map);
 
 }
