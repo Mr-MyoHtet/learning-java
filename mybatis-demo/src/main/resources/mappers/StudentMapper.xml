@@ -142,4 +142,18 @@ AND end_date =#{endDate}
 </select>
 <!--Mybatis Dynamic Query by Where condition end -->
 
+<!-- Mybatis Dynamic Query by trim  start-->
+<select id="searchCourseByTrim" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course 
+<trim prefix="WHERE" prefixOverrides="AND | OR"> 
+<if test="tutorId != null ">
+tutor_id = #{tutorId}
+</if>
+<if test="courseName !=null ">
+AND name like #{courseName}
+</if>
+</trim>
+</select>
+<!-- Mybatis Dynamic Query by trim  end-->
+
 </mapper>

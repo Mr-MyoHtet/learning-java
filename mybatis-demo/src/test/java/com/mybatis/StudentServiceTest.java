@@ -102,14 +102,25 @@ public class StudentServiceTest {
 //		}
 //	}
 	
+//	@Test
+//	void searchCourseByWhere() {
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("tutorId", 2);
+//		map.put("courseName", "Java SE");
+//		map.put("startDate", "2025-03-20");
+//		map.put("endDate","2025-05-20");
+//		List<Course> courseResult = studentService.searchCourseByWhere(map);
+//		for(Course course : courseResult) {
+//			System.out.println(course);
+//		}
+//	}
+//	
 	@Test
-	void searchCourseByWhere() {
+	void searchCourseByTrim() {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("tutorId", 2);
+		map.put("tutorId", 1);
 		map.put("courseName", "Java SE");
-		map.put("startDate", "2025-03-20");
-		map.put("endDate","2025-05-20");
-		List<Course> courseResult = studentService.searchCourseByWhere(map);
+		List<Course> courseResult = studentService.searchCourseByTrim(map);
 		for(Course course : courseResult) {
 			System.out.println(course);
 		}

@@ -54,5 +54,9 @@ public class StudentService {
 	public List<Course> searchCourseByWhere(Map<String,Object> map){
 		return studentMapper.searchCourseByWhere(map);
 	}
+	
+	public List<Course> searchCourseByTrim(Map<String,Object> map){
+		return studentMapper.searchCourseByTrim(map);
+	}
 
 }

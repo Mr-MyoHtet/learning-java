@@ -34,5 +34,8 @@ public interface StudentMapper {
 	
 	//where condition
 	List<Course> searchCourseByWhere(Map<String,Object> map);
+	
+	//The trim condition
+	List<Course> searchCourseByTrim(Map<String,Object> map);
 
 }
