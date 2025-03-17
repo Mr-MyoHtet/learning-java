@@ -156,4 +156,34 @@ AND name like #{courseName}
 </select>
 <!-- Mybatis Dynamic Query by trim  end-->
 
+<!-- foreach eg 1-->
+<!--Mybatis Dynamic Query by foreach start-->
+<!-- SELECT * FROM COURSES WHERE OR tutor_id = 1 OR tutor_id = 2 OR tutor_id = 3; -->
+<select id="searchCoursesByTutors" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course
+<if test="tutorIds != null ">
+<where>
+<foreach item="tutorId" collection="tutorIds">
+OR tutor_id =#{tutorId}
+</foreach>
+</where>
+</if>
+</select>
+
+<!--foreach eg 2-->
+<!-- SELECT * FROM COURSES WHERE tutor_id IN (1, 2, 3); -->
+<select id="searchCoursesByTutors" parameterType="hashMap" resultMap="courseResult">
+SELECT * FROM course
+<if test="tutorIds != null ">
+<where>
+tutor_id IN
+<foreach item="tutorId" collection="tutorIds" open="(" separator="," close=")">
+#{tutorId}
+</foreach>
+</where>
+</if>
+</select>
+ <!-- Eg2 is more better than Eg1-->
+<!--Mybatis Dynamic Query by foreach end-->
+
 </mapper>

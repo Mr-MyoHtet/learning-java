@@ -3,6 +3,7 @@ package com.mybatis;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -115,15 +116,30 @@ public class StudentServiceTest {
 //		}
 //	}
 //	
+//	@Test
+//	void searchCourseByTrim() {
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("tutorId", 1);
+//		map.put("courseName", "Java SE");
+//		List<Course> courseResult = studentService.searchCourseByTrim(map);
+//		for(Course course : courseResult) {
+//			System.out.println(course);
+//		}
+//	}
+	
 	@Test
-	void searchCourseByTrim() {
+	void searchCoursesByTutors() {
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("tutorId", 1);
-		map.put("courseName", "Java SE");
-		List<Course> courseResult = studentService.searchCourseByTrim(map);
+		List<Integer> tutorIds = new ArrayList<Integer>();
+		tutorIds.add(1);
+		tutorIds.add(2);
+		tutorIds.add(3);
+		map.put("tutorIds", tutorIds);
+		List<Course> courseResult = studentService.searchCoursesByTutors(map);
 		for(Course course : courseResult) {
 			System.out.println(course);
 		}
+		
 	}
 
 }

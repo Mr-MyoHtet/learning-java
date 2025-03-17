@@ -37,5 +37,8 @@ public interface StudentMapper {
 	
 	//The trim condition
 	List<Course> searchCourseByTrim(Map<String,Object> map);
+	
+	//forEach Search Course By Tutors
+	List<Course> searchCoursesByTutors(Map<String,Object> map);
 
 }
