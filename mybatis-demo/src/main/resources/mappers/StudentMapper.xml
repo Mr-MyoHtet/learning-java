@@ -3,187 +3,176 @@
 
 <mapper namespace="com.mybatis.mapper.StudentMapper">
 
-<select id="getAllStudent" resultType="com.mybatis.model.Student">
-SELECT * FROM student;
-</select>
+  <!-- Get all students -->
+  <select id="getAllStudent" resultType="com.mybatis.model.Student">
+    SELECT * FROM student;
+  </select>
 
-<resultMap id="studentResultMap" type="com.mybatis.model.Student">
-<id  property="studId" column="stud_id"/>
-<result property="name" column="name"/>
-<result property="email" column="name"/>
-<result property="phone" column="phone"/>
-<result property="dob" column="dob"/>
-<result property="bio" column="bio"/>
-</resultMap>
-<select id="findStudentById" parameterType="int" resultMap="studentResultMap">
-SELECT * FROM student where stud_id=#{id}
-</select>
+  <!-- Student ResultMap -->
+  <resultMap id="studentResultMap" type="com.mybatis.model.Student">
+    <id property="studId" column="stud_id"/>
+    <result property="name" column="name"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <result property="dob" column="dob"/>
+    <result property="bio" column="bio"/>
+    <result property="gender" column="gender"/>
+  </resultMap>
 
-<insert id="insertStudent" parameterType="com.mybatis.model.Student" useGeneratedKeys="true" keyProperty="studId">
-   INSERT INTO student (stud_id, name, email, phone, dob, bio, addr_id)
-   VALUES(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{bio}, #{address.addrId})
-</insert>
+  <!-- Find student by ID -->
+  <select id="findStudentById" parameterType="int" resultMap="studentResultMap">
+    SELECT * FROM student WHERE stud_id=#{id}
+  </select>
 
-<update id="updateStudent" parameterType="com.mybatis.model.Student">
-UPDATE student SET name=#{name},email=#{email},phone=#{phone},dob=#{dob},bio=#{bio}
-WHERE stud_id=#{stud_id}
-</update>
+  <!-- Insert new student -->
+  <insert id="insertStudent" parameterType="com.mybatis.model.Student" useGeneratedKeys="true" keyProperty="studId">
+    INSERT INTO student (stud_id, name, email, phone, dob, bio, addr_id, gender)
+    VALUES(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{bio}, #{address.addrId}, #{gender})
+  </insert>
 
-<!-- Address and Student start-->
-<resultMap id="addressResult" type="com.mybatis.model.Address">
-<id property="addrId" column="addr_id"/>
-<result  property="street" column="street"/>
-<result  property="city" column="city"/>
-<result  property="state" column="state"/>
-<result  property="zip" column="zip"/>
-<result  property="country" column="country"/>
-</resultMap>
+  <!-- Update student -->
+  <update id="updateStudent" parameterType="com.mybatis.model.Student">
+    UPDATE student 
+    SET name=#{name}, email=#{email}, phone=#{phone}, dob=#{dob}, bio=#{bio} 
+    WHERE stud_id=#{studId}
+  </update>
 
-<resultMap id="studentResult" type="com.mybatis.model.Student">
-<id  property="studId" column="stud_id"/>
-<result property="name" column="name"/>
-<result property="email" column="email"/>
-<result property="phone" column="phone"/>
-<result property="dob" column="dob"/>
-<result property="bio" column="bio"/>
-<association property="address" resultMap="addressResult"></association>
-</resultMap>
+  <!-- Address ResultMap -->
+  <resultMap id="addressResult" type="com.mybatis.model.Address">
+    <id property="addrId" column="addr_id"/>
+    <result property="street" column="street"/>
+    <result property="city" column="city"/>
+    <result property="state" column="state"/>
+    <result property="zip" column="zip"/>
+    <result property="country" column="country"/>
+  </resultMap>
 
-<select id="findStudentWithAddress" parameterType="int" resultMap="studentResult">
-SELECT stud_id,name,email,phone,dob,bio,street,city,state,zip,country from student s join address a
-on s.addr_id = a.addr_id where stud_id= #{id}
-</select>
-<!-- Address and Student start-->
+  <!-- Student ResultMap with Address association -->
+  <resultMap id="studentWithAddressResultMap" type="com.mybatis.model.Student">
+    <id property="studId" column="stud_id"/>
+    <result property="name" column="name"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <result property="dob" column="dob"/>
+    <result property="bio" column="bio"/>
+    <association property="address" resultMap="addressResult"/>
+  </resultMap>
 
+  <!-- Find student with address -->
+  <select id="findStudentWithAddress" parameterType="int" resultMap="studentWithAddressResultMap">
+    SELECT stud_id, name, email, phone, dob, bio, street, city, state, zip, country 
+    FROM student s 
+    JOIN address a ON s.addr_id = a.addr_id 
+    WHERE stud_id=#{id}
+  </select>
 
-<!-- Couse and Tutor  start-->
-<resultMap id="courseResult" type="com.mybatis.model.Course">
-<id property="courseId" column="course_id"></id>
-<result property="name" column="name"/>
-<result property="description" column="description"/>
-<result property="startDate" column="start_date"/>
-<result property="endDate" column="end_date"/>
-</resultMap>
+  <!-- Course ResultMap -->
+  <resultMap id="courseResult" type="com.mybatis.model.Course">
+    <id property="courseId" column="course_id"/>
+    <result property="name" column="name"/>
+    <result property="description" column="description"/>
+    <result property="startDate" column="start_date"/>
+    <result property="endDate" column="end_date"/>
+  </resultMap>
 
-<resultMap id="tutorResult" type="com.mybatis.model.Tutors">
-<id property="tutorId" column="tutor_id"></id>
-<result  property="name" column="name"/>
-<result  property="email" column="email"/>
-<result  property="phone" column="phone"/>
-<!-- tutors and addresss is one to one relationshi-->
-<association property="address" resultMap="addressResult"></association>
-<!-- tutors and course is one to many relationship-->
-<collection property="course" resultMap="courseResult"></collection>
-</resultMap>
+  <!-- Tutor ResultMap with Course and Address associations -->
+  <resultMap id="tutorResult" type="com.mybatis.model.Tutors">
+    <id property="tutorId" column="tutor_id"/>
+    <result property="name" column="name"/>
+    <result property="email" column="email"/>
+    <result property="phone" column="phone"/>
+    <association property="address" resultMap="addressResult"/>
+    <collection property="course" resultMap="courseResult"/>
+  </resultMap>
 
-<select id="findTutorById" parameterType="int" resultMap="tutorResult">
-SELECT t.tutor_id, t.name AS Tutor_Name, t.email, t.phone, 
-       c.course_id, c.name, c.description, c.start_date, c.end_date, 
-      s.addr_id, s.city
-FROM tutors AS t  
-LEFT JOIN address s ON t.addr_id = s.addr_id  
-LEFT JOIN course c ON t.tutor_id = c.tutor_id  
-WHERE t.tutor_id = #{tutorId}
-</select>
-<!-- Couse and Tutor  start-->
+  <!-- Find tutor by ID -->
+  <select id="findTutorById" parameterType="int" resultMap="tutorResult">
+    SELECT t.tutor_id, t.name AS tutor_name, t.email, t.phone, 
+           c.course_id, c.name AS course_name, c.description, c.start_date, c.end_date, 
+           a.addr_id, a.city
+    FROM tutors t
+    LEFT JOIN address a ON t.addr_id = a.addr_id
+    LEFT JOIN course c ON t.tutor_id = c.tutor_id
+    WHERE t.tutor_id=#{tutorId}
+  </select>
 
+  <!-- Dynamic query for searching courses -->
+  <select id="searchCourses" parameterType="hashMap" resultMap="courseResult">
+    SELECT * FROM course WHERE tutor_id=#{tutorId}
+    <if test="courseName != null">
+      AND name LIKE #{courseName}
+    </if>
+    <if test="description != null">
+      AND description = #{description}
+    </if>
+    <if test="startDate != null">
+      AND start_date >= #{startDate}
+    </if>
+  </select>
 
-<!--  Mybatis Dynamic Query for search course start-->
-<!-- tutor_id is present query will be fail-->
-<select id="searchCourses" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course WHERE tutor_id=#{tutorId}
-<if test="courseName != null ">
-AND name LIKE #{courseName}
-</if>
-<if test="description !=null">
-AND description =#{description}
-</if>
-<if test="startDate != null">
-AND start_date >= #{startDate}
-</if>
-</select>
-<!--  Mybatis Dynamic Query for search course end-->
+  <!-- Dynamic query using 'choose' statement -->
+  <select id="searchCoursesUsingChoose" parameterType="hashMap" resultMap="courseResult">
+    SELECT * FROM course 
+    <choose>
+      <when test="searchBy == 'Tutor'">
+        WHERE tutor_id = #{tutorId}
+      </when>
+      <when test="searchBy == 'CourseName'">
+        WHERE name LIKE #{courseName}
+      </when>
+      <otherwise>
+        WHERE start_date >= NOW()
+      </otherwise>
+    </choose>
+  </select>
 
-<!--Mybatis Dynamic Query for using choose statement start-->
-<select id="searchCoursesUsingChoose" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course 
-<choose>
-<when test="searchBy == 'Tutor'">
-WHERE tutor_id =#{tutorId}
-</when>
-<when test="searchBy =='CourseName'">
-WHERE name LIKE #{CourseName}
-</when>
-<otherwise>
-WHERE tutor start_date &gt;=now()
-</otherwise>
-</choose>
-</select>
-<!--Mybatis Dynamic Query for using choose statement end-->
+  <!-- Dynamic query with 'where' condition -->
+  <select id="searchCourseByWhere" parameterType="hashMap" resultMap="courseResult">
+    SELECT * FROM course 
+    <where>
+      <if test="tutorId != null">
+        tutor_id = #{tutorId}
+      </if>
+      <if test="courseName != null">
+        AND name LIKE #{courseName}
+      </if>
+      <if test="startDate != null">
+        AND start_date = #{startDate}
+      </if>
+      <if test="endDate != null">
+        AND end_date = #{endDate}
+      </if>
+    </where>
+  </select>
 
-<!--Mybatis Dynamic Query by Where condition start -->
-  <!--If no condition are provided ,return select * from course -->
-<select id="searchCourseByWhere" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course 
-<where>
- <if test="tutorId != null ">
-tutor_id =#{tutorId}
-</if>
-<if test="courseName !=null ">
-AND name like #{courseName}
-</if>
-<if test="startDate != null ">
-AND start_date = #{startDate}
-</if>
-<if test="endDate != null">
-AND end_date =#{endDate}
-</if>
-</where>
-</select>
-<!--Mybatis Dynamic Query by Where condition end -->
+  <!-- Dynamic query with 'trim' condition -->
+  <select id="searchCourseByTrim" parameterType="hashMap" resultMap="courseResult">
+    SELECT * FROM course 
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+      <if test="tutorId != null">
+        tutor_id = #{tutorId}
+      </if>
+      <if test="courseName != null">
+        AND name LIKE #{courseName}
+      </if>
+    </trim>
+  </select>
 
-<!-- Mybatis Dynamic Query by trim  start-->
-<select id="searchCourseByTrim" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course 
-<trim prefix="WHERE" prefixOverrides="AND | OR"> 
-<if test="tutorId != null ">
-tutor_id = #{tutorId}
-</if>
-<if test="courseName !=null ">
-AND name like #{courseName}
-</if>
-</trim>
-</select>
-<!-- Mybatis Dynamic Query by trim  end-->
-
-<!-- foreach eg 1-->
-<!--Mybatis Dynamic Query by foreach start-->
-<!-- SELECT * FROM COURSES WHERE OR tutor_id = 1 OR tutor_id = 2 OR tutor_id = 3; -->
-<select id="searchCoursesByTutors" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course
-<if test="tutorIds != null ">
-<where>
-<foreach item="tutorId" collection="tutorIds">
-OR tutor_id =#{tutorId}
-</foreach>
-</where>
-</if>
-</select>
-
-<!--foreach eg 2-->
-<!-- SELECT * FROM COURSES WHERE tutor_id IN (1, 2, 3); -->
-<select id="searchCoursesByTutors" parameterType="hashMap" resultMap="courseResult">
-SELECT * FROM course
-<if test="tutorIds != null ">
-<where>
-tutor_id IN
-<foreach item="tutorId" collection="tutorIds" open="(" separator="," close=")">
-#{tutorId}
-</foreach>
-</where>
-</if>
-</select>
- <!-- Eg2 is more better than Eg1-->
-<!--Mybatis Dynamic Query by foreach end-->
-
+  <!-- Dynamic query with 'foreach' -->
+  <select id="searchCoursesByTutors" parameterType="hashMap" resultMap="courseResult">
+    SELECT * FROM course
+    <if test="tutorIds != null">
+      <where>
+        <foreach item="tutorId" collection="tutorIds" open="(" separator="," close=")">
+          #{tutorId}
+        </foreach>
+      </where>
+    </if>
+  </select>
+  
+  <!--RowBounds for pagination start-->
+  <select id="findAllStudents" resultMap="studentResultMap">
+  SELECT * FROM student
+  </select>
+  <!--RowBounds for pagination end-->
 </mapper>

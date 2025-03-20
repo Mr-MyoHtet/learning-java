@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import com.mybatis.model.Course;
 import com.mybatis.model.Student;
@@ -16,8 +17,6 @@ public interface StudentMapper {
 	Student findStudentById(Integer id);
 
 	void insertStudent(Student student);
-
-	int updateStudent(Student student);
 	
 	//one-to-one
 	Student findStudentWithAddress(Integer id);
@@ -40,5 +39,9 @@ public interface StudentMapper {
 	
 	//forEach Search Course By Tutors
 	List<Course> searchCoursesByTutors(Map<String,Object> map);
-
+	
+	//RowBounds for pagination
+	List<Student> findAllStudents(RowBounds rowBounds);
+	
+	
 }

@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,23 +40,24 @@ public class StudentServiceTest {
 //		System.out.println(student_id);
 //	}
 
-//	@Test
-//	void insertStudetn() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-//
-//        LocalDate dob = LocalDate.parse("19960412", formatter);
-//
-//		Student stu = new Student();
-//		Address addr = new Address();
-//		stu.setName("myo");
-//		stu.setEmail("aung@gmail.com");
-//		stu.setPhone("09978961902");
-//        stu.setDob(dob);
-//		stu.setBio("Developer");
-//		addr.setAddrId(2);
-//		stu.setAddress(addr);
-//		studentService.insertStudent(stu);
-//	}
+	@Test
+	void insertStudet() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        LocalDate dob = LocalDate.parse("19960412", formatter);
+
+		Student stu = new Student();
+		Address addr = new Address();
+		stu.setName("myohtet");
+		stu.setEmail("myohtet@gmail.com");
+		stu.setPhone("09978961902");
+        stu.setDob(dob);
+		stu.setBio("Developer");
+		stu.setGender(Student.Gender.MALE);
+		addr.setAddrId(2);
+		stu.setAddress(addr);
+		studentService.insertStudent(stu);
+	}
 
 //	@Test
 //	void findStudentWithAddress() {
@@ -127,17 +129,37 @@ public class StudentServiceTest {
 //		}
 //	}
 	
+//	@Test
+//	void searchCoursesByTutors() {
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		List<Integer> tutorIds = new ArrayList<Integer>();
+//		tutorIds.add(1);
+//		tutorIds.add(2);
+//		tutorIds.add(3);
+//		map.put("tutorIds", tutorIds);
+//		List<Course> courseResult = studentService.searchCoursesByTutors(map);
+//		for(Course course : courseResult) {
+//			System.out.println(course);
+//		}
+//		
+//	}
+//	@Test
+//	void updateStudent() {
+//		Student student = new Student();
+//		student.setStudId(8);
+//		student.setName("aung aung");
+//		student.setEmail("aungaung@gmail.com");
+//		Student s = studentService.updateStudent(student);
+//		System.out.println(s);
+//	}
+	
 	@Test
-	void searchCoursesByTutors() {
-		Map<String,Object> map = new HashMap<String,Object>();
-		List<Integer> tutorIds = new ArrayList<Integer>();
-		tutorIds.add(1);
-		tutorIds.add(2);
-		tutorIds.add(3);
-		map.put("tutorIds", tutorIds);
-		List<Course> courseResult = studentService.searchCoursesByTutors(map);
-		for(Course course : courseResult) {
-			System.out.println(course);
+	void findAllStudents() {
+		int offest =0,limit=5;
+		RowBounds rowBounds = new RowBounds(offest,limit);
+		List<Student> students = studentService.findAllStudents(rowBounds);
+		for(Student student : students) {
+			System.out.println(student);
 		}
 		
 	}

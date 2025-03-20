@@ -11,6 +11,11 @@ public class Student {
 	private LocalDate dob;
 	private String bio;
 	private Address address;
+	private Gender gender;
+
+	public enum Gender {
+		MALE, FEMALE
+	}
 
 	public int getStudId() {
 		return studId;
@@ -68,10 +73,18 @@ public class Student {
 		this.address = address;
 	}
 
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
 	@Override
 	public String toString() {
 		return "Student [studId=" + studId + ", name=" + name + ", email=" + email + ", phone=" + phone + ", dob=" + dob
-				+ ", bio=" + bio + ", address=" + address + "]";
+				+ ", bio=" + bio + ", address=" + address + ", gender=" + gender + "]";
 	}
 
 }

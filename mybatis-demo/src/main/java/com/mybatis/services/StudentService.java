@@ -3,6 +3,7 @@ package com.mybatis.services;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +31,6 @@ public class StudentService {
 		studentMapper.insertStudent(student);
 	}
 
-	public int updateStudent(Student student) {
-		return studentMapper.updateStudent(student);
-	}
 
 	public Student findStudentWithAddress(Integer id) {
 		return studentMapper.findStudentWithAddress(id);
@@ -61,6 +59,10 @@ public class StudentService {
 	
 	public List<Course> searchCoursesByTutors(Map<String,Object> map){
 		return studentMapper.searchCoursesByTutors(map);
+	}
+	
+	public List<Student> findAllStudents(RowBounds rowBounds){
+		return studentMapper.findAllStudents(rowBounds);
 	}
 
 }
