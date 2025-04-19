@@ -1,5 +1,7 @@
 package com.query.entity;
 
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,6 +10,9 @@ import lombok.Data;
 
 @Entity
 @Data
+@NamedQuery(name = "Course.All",query = "select c from Course c")
+@NamedQuery(name="Course.getAllNames",query = "select c.name from Course c")
+@NamedQuery(name="Course.CountAll", query = "select count(c.id) from Course c")
 public class Course {
 
 	@Id

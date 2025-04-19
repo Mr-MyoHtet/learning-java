@@ -35,5 +35,30 @@ public class CourseRepoCriteria implements CourseRepo{
         TypedQuery<Course> query = em.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public List<String> findAllNames() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        //လိုချင်တဲ. result type
+        CriteriaQuery<String> cq = cb.createQuery(String.class);
+
+        Root<Course> c = cq.from(Course.class);
+        cq.select(c.get("name"));
+
+        TypedQuery<String> query = em.createQuery(cq);
+        return query.getResultList();
+    }
+
+    @Override
+    public Long CountAll() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+
+        Root<Course> c = cq.from(Course.class);
+        cq.select(cb.count(c.get("id")));
+        
+        TypedQuery<Long> query = em.createQuery(cq);
+       return query.getSingleResult();
+    }
     
 }

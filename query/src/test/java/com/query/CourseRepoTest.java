@@ -21,9 +21,30 @@ public class CourseRepoTest {
     //for Jpql
     var result1 = courseRepoJpql.findAll();
     System.out.println(result1);
-    
+
     //Criteria
      var result2 = courseRepoCriteria.findAll();
      System.out.println(result2);
+   }
+   @Test
+   void findAllNames() {
+   //for Jpql
+   var result1 = courseRepoJpql.findAllNames();
+   System.out.println(result1);
+
+   System.out.println("Testing");
+   var result2 = courseRepoCriteria.findAllNames();
+   System.out.println(result2);
+
+   }
+
+   @Test
+   void CountAll(){
+   var result1 = courseRepoJpql.CountAll();
+   System.out.println(result1);
+
+   var result2 = courseRepoCriteria.CountAll();
+   System.out.println(result2);
+
    }
 }

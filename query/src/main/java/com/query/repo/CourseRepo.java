@@ -7,5 +7,7 @@ import com.query.entity.Course;
 public interface CourseRepo {
 
    List<Course> findAll();
+   List<String> findAllNames();
+   Long CountAll();
 
 }

@@ -19,9 +19,23 @@ public class CourseRepoJpql  implements CourseRepo{
     @Override
     public List<Course> findAll() { 
         //Course is Entity ,is not table name
-        var jpql = "select c from Course c";
-        var query = em.createQuery(jpql,Course.class);
+        // var jpql = "select c from Course c";
+        //var query = em.createQuery(jpql,Course.class);
+        var query = em.createNamedQuery("Course.All",Course.class);
         return query.getResultList();
+    }
+
+    @Override
+    //String.class ကလိုချင်တဲ. result type List<String> findAllNames();
+    public List<String> findAllNames() {
+      var query = em.createNamedQuery("Course.getAllNames",String.class);
+     return query.getResultList();
+    }
+
+    @Override
+    public Long CountAll() {
+    var query = em.createNamedQuery("Course.CountAll",Long.class);
+    return query.getSingleResult();
     }
 
 }
