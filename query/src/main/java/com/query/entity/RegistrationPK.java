@@ -2,13 +2,19 @@ package com.query.entity;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class RegistrationPK {
-
+    
+	@Column(name = "course_id")
 	private int courseId;
+
+	@Column(name="start_at")
 	private LocalDate startAt;
+	
+    @Column(name = "student_id")
 	private int studentId;
 
 	public RegistrationPK(int courseId, LocalDate startAt, int studentId) {

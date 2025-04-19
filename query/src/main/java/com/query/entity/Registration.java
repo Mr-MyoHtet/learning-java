@@ -16,12 +16,14 @@ public class Registration {
 	private RegistrationPK id;
     
 	@ManyToOne
-	@JoinColumn(name = "studentId", insertable=false,updatable=false)
+	//referenceColumnName id is studnet table property
+	//student_id is RegistrationPK of property so this student_id is cannot be insert or update
+	@JoinColumn(name = "student_id", referencedColumnName = "id", insertable=false, updatable=false)
 	private Student student;
 	
 	@ManyToOne
-	@JoinColumn(name="courseId",insertable=false,updatable=false)
-	@JoinColumn(name="StartAt",insertable=false,updatable=false)
+	@JoinColumn(name="course_id", referencedColumnName = "course_id", insertable=false, updatable=false)
+	@JoinColumn(name="start_at", referencedColumnName = "start_at", insertable=false, updatable=false)
 	private Section section;
 	
 	private LocalDateTime registAt;

@@ -1,12 +1,8 @@
 package com.mybatis;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.junit.jupiter.api.Test;
@@ -14,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.mybatis.model.Address;
-import com.mybatis.model.Course;
 import com.mybatis.model.Student;
-import com.mybatis.model.Tutors;
 import com.mybatis.services.StudentService;
 
 @SpringBootTest
@@ -40,24 +34,24 @@ public class StudentServiceTest {
 //		System.out.println(student_id);
 //	}
 
-	@Test
-	void insertStudet() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+	// @Test
+	// void insertStudet() {
+    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        LocalDate dob = LocalDate.parse("19960412", formatter);
+    //     LocalDate dob = LocalDate.parse("19960412", formatter);
 
-		Student stu = new Student();
-		Address addr = new Address();
-		stu.setName("myohtet");
-		stu.setEmail("myohtet@gmail.com");
-		stu.setPhone("09978961902");
-        stu.setDob(dob);
-		stu.setBio("Developer");
-		stu.setGender(Student.Gender.MALE);
-		addr.setAddrId(2);
-		stu.setAddress(addr);
-		studentService.insertStudent(stu);
-	}
+	// 	Student stu = new Student();
+	// 	Address addr = new Address();
+	// 	stu.setName("myohtet");
+	// 	stu.setEmail("myohtet@gmail.com");
+	// 	stu.setPhone("09978961902");
+    //     stu.setDob(dob);
+	// 	stu.setBio("Developer");
+	// 	stu.setGender(Student.Gender.MALE);
+	// 	addr.setAddrId(2);
+	// 	stu.setAddress(addr);
+	// 	studentService.insertStudent(stu);
+	// }
 
 //	@Test
 //	void findStudentWithAddress() {
@@ -161,7 +155,6 @@ public class StudentServiceTest {
 		for(Student student : students) {
 			System.out.println(student);
 		}
-		
 	}
 
 }

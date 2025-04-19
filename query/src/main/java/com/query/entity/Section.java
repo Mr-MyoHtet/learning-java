@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.query.entity.convector.DaysConvector;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -20,7 +21,8 @@ public class Section {
 	private SectionPK id;
 
 	@ManyToOne
-	@JoinColumn(name = "courseId", insertable = false, updatable = false)
+	//@JoinColumn(name = "course_id", ) is the Course table の　course_id
+	@JoinColumn(name = "course_id", insertable = false, updatable = false)
 	private Course course;
 
 	// @ElementCollection

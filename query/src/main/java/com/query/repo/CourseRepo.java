@@ -6,6 +6,6 @@ import com.query.entity.Course;
 
 public interface CourseRepo {
 
-	List<Course> findALL();
+   List<Course> findAll();
 
 }

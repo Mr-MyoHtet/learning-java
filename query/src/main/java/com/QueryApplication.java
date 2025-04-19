@@ -1,12 +1,9 @@
-package com.query;
-
+package com;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-
 @SpringBootApplication
-@ComponentScan(basePackages = "com.query.repo.jpql")
-
+// @ComponentScan(basePackages = "com.query.repo.jpql")
+// @ComponentScan(basePackages = "com.query.repo.criteria")
 public class QueryApplication {
 
 	public static void main(String[] args) {

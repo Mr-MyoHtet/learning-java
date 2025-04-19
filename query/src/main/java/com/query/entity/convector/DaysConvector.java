@@ -1,12 +1,9 @@
 package com.query.entity.convector;
-
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.util.StringUtils;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
