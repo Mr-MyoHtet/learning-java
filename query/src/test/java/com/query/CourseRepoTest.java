@@ -47,4 +47,35 @@ public class CourseRepoTest {
    System.out.println(result2);
 
    }
+   
+   @Test
+   void findCourseAverageHours(){
+    var result1 = courseRepoJpql.AverageHours();
+    System.out.println(result1);
+
+    var result2 = courseRepoCriteria.AverageHours();
+    System.out.println(result2);
+
+   }
+
+   @Test
+   void findSumFees(){
+    var result1 = courseRepoJpql.findSumFees();
+    System.out.println(result1);
+
+    // var result2 = courseRepoCriteria.findSumFees();
+    // System.out.println(result2);
+
+     }
+
+     @Test
+     void findCourseDto(){
+     var result1 = courseRepoJpql.findCourseDto();
+     System.out.println(result1);
+
+     var result2 = courseRepoCriteria.findCourseDto();
+     System.out.println(result2);
+
+     }
+
 }

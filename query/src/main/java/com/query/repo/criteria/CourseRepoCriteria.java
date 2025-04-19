@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import com.query.entity.Course;
+import com.query.entity.dto.CourseDto;
 import com.query.repo.CourseRepo;
 
 import jakarta.persistence.EntityManager;
@@ -59,6 +60,45 @@ public class CourseRepoCriteria implements CourseRepo{
         
         TypedQuery<Long> query = em.createQuery(cq);
        return query.getSingleResult();
+    }
+
+    @Override
+    public Double AverageHours() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Double> cq = cb.createQuery(Double.class);
+
+        Root<Course> c = cq.from(Course.class);
+        cq.select(cb.avg(c.get("hours")));
+        
+        TypedQuery<Double> query = em.createQuery(cq);
+       return query.getSingleResult();
+    }
+
+    @Override
+    public Long findSumFees() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+
+        Root<Course> c = cq.from(Course.class);
+        cq.select(cb.sum(c.get("fees")));
+        
+        TypedQuery<Long> query = em.createQuery(cq);
+       return query.getSingleResult();
+    }
+
+    @Override
+    public List<CourseDto> findCourseDto() {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<CourseDto> cq = cb.createQuery(CourseDto.class);
+
+        Root<Course> root= cq.from(Course.class);
+        cq.multiselect(
+            root.get("id"),
+            root.get("name"),
+            root.get("fees")
+        );
+        TypedQuery<CourseDto> query = em.createQuery(cq);
+        return query.getResultList();
     }
     
 }

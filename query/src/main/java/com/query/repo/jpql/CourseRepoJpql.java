@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.query.entity.Course;
+import com.query.entity.dto.CourseDto;
 import com.query.repo.CourseRepo;
 
 import jakarta.persistence.EntityManager;
@@ -36,6 +37,24 @@ public class CourseRepoJpql  implements CourseRepo{
     public Long CountAll() {
     var query = em.createNamedQuery("Course.CountAll",Long.class);
     return query.getSingleResult();
+    }
+
+    @Override
+    public Double AverageHours() {
+      var query = em.createNamedQuery("Course.findAverageHours",Double.class);
+      return query.getSingleResult();
+    }
+
+    @Override
+    public Long findSumFees() {
+      var query = em.createNamedQuery("Course.findSumfees",Long.class);
+      return query.getSingleResult();
+    }
+
+    @Override
+    public List<CourseDto> findCourseDto() {
+     var query = em.createNamedQuery("Course.findCourseDto",CourseDto.class);
+     return query.getResultList();
     }
 
 }
