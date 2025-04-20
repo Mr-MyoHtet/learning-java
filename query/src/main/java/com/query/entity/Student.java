@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import lombok.Data;
 
 @Entity
 @Data
+@NamedQuery(name = "Student.findByPhone",query = "select s from Student s where s.phone =?1")
 public class Student {
    
 	@Id
@@ -16,6 +18,10 @@ public class Student {
 	private String name;
 	private String phone;
 	private String email;
+	
+	public Student(){
+		
+	}
 
 	public Student(int id, String name, String phone, String email) {
 		super();
