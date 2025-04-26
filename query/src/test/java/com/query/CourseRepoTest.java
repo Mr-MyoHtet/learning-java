@@ -13,69 +13,70 @@ public class CourseRepoTest {
   @Autowired
   private CourseRepoJpql courseRepoJpql;
 
-   @Autowired
-   private CourseRepoCriteria courseRepoCriteria;
-   
-   @Test
-   void findAllTest() {
-    //for Jpql
+  @Autowired
+  private CourseRepoCriteria courseRepoCriteria;
+
+  @Test
+  void findAllTest() {
+    // for Jpql
     var result1 = courseRepoJpql.findAll();
     System.out.println(result1);
 
-    //Criteria
-     var result2 = courseRepoCriteria.findAll();
-     System.out.println(result2);
-   }
-   @Test
-   void findAllNames() {
-   //for Jpql
-   var result1 = courseRepoJpql.findAllNames();
-   System.out.println(result1);
+    // Criteria
+    var result2 = courseRepoCriteria.findAll();
+    System.out.println(result2);
+  }
 
-   System.out.println("Testing");
-   var result2 = courseRepoCriteria.findAllNames();
-   System.out.println(result2);
+  @Test
+  void findAllNames() {
+    // for Jpql
+    var result1 = courseRepoJpql.findAllNames();
+    System.out.println(result1);
 
-   }
+    System.out.println("Testing");
+    var result2 = courseRepoCriteria.findAllNames();
+    System.out.println(result2);
 
-   @Test
-   void CountAll(){
-   var result1 = courseRepoJpql.CountAll();
-   System.out.println(result1);
+  }
 
-   var result2 = courseRepoCriteria.CountAll();
-   System.out.println(result2);
+  @Test
+  void CountAll() {
+    var result1 = courseRepoJpql.CountAll();
+    System.out.println(result1);
 
-   }
-   
-   @Test
-   void findCourseAverageHours(){
+    var result2 = courseRepoCriteria.CountAll();
+    System.out.println(result2);
+
+  }
+
+  @Test
+  void findCourseAverageHours() {
     var result1 = courseRepoJpql.AverageHours();
     System.out.println(result1);
 
     var result2 = courseRepoCriteria.AverageHours();
     System.out.println(result2);
 
-   }
+  }
 
-   @Test
-   void findSumFees(){
+  @Test
+  void findSumFees() {
     var result1 = courseRepoJpql.findSumFees();
     System.out.println(result1);
 
     // var result2 = courseRepoCriteria.findSumFees();
     // System.out.println(result2);
 
-     }
+  }
 
-     @Test
-     void findCourseDto(){
-     var result1 = courseRepoJpql.findCourseDto();
-     System.out.println(result1);
+  @Test
+  void findCourseDto() {
+    var result1 = courseRepoJpql.findCourseDto();
+    System.out.println(result1);
 
-     var result2 = courseRepoCriteria.findCourseDto();
-     System.out.println(result2);
+    var result2 = courseRepoCriteria.findCourseDto();
+    System.out.println(result2);
 
-     }
+  }
 
 }

@@ -7,6 +7,7 @@ import com.query.entity.Student;
 public interface StudentRepo {
 
     List<Student> findByPhone(String phone);
+
     List<Student> findByKeyWord(String keyword);
 
 }

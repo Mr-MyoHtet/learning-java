@@ -21,12 +21,26 @@ import lombok.Data;
 @NamedQuery(name = "Section.searchFessUsingSectionDto", query = """
 		 select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
 		from Section s where s.fees <= :fees""")
+// s.id.StartAt id is from SectionPK ,SectionPk has startAt
+@NamedQuery(name = "Section.searchDateBetween", query = """
+		 select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+		from Section s where s.id.startAt between :from and :to
+				""")
+
+@NamedQuery(name = "Section.searchStartTimeIn", query = """
+		        select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+		from Section s where  s.startTime in :list
+		""")
 public class Section {
 	@EmbeddedId
 	private SectionPK id;
 
-	@ManyToOne
 	// @JoinColumn(name = "course_id", ) is the Course table の course_id
+	// Hibernate won't manage (INSERT or UPDATE) this foreign key column
+	// automatically.
+	// You are saying "the course_id is already managed somewhere else (maybe inside
+	// SectionPK)".
+	@ManyToOne
 	@JoinColumn(name = "course_id", insertable = false, updatable = false)
 	public Course course;
 

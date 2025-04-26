@@ -11,23 +11,23 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Repository
-public class StudentRepoJpql implements StudentRepo{
-    
-    @PersistenceContext
-    private EntityManager em;
+public class StudentRepoJpql implements StudentRepo {
 
-    @Override
-    public List<Student> findByPhone(String phone) {
-       var query = em.createNamedQuery("Student.findByPhone",Student.class);
-       query.setParameter(1, phone);
-       return query.getResultList();
-    }
+   @PersistenceContext
+   private EntityManager em;
 
-    @Override
-    public List<Student> findByKeyWord(String keyword) {
-       var query = em.createNamedQuery("Student.findByKeyWord",Student.class);
-       query.setParameter("keyword", keyword.toLowerCase().concat("%"));
-       return query.getResultList();
-    }
-    
+   @Override
+   public List<Student> findByPhone(String phone) {
+      var query = em.createNamedQuery("Student.findByPhone", Student.class);
+      query.setParameter(1, phone);
+      return query.getResultList();
+   }
+
+   @Override
+   public List<Student> findByKeyWord(String keyword) {
+      var query = em.createNamedQuery("Student.findByKeyWord", Student.class);
+      query.setParameter("keyword", keyword.toLowerCase().concat("%"));
+      return query.getResultList();
+   }
+
 }

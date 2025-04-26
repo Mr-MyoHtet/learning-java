@@ -11,21 +11,22 @@ import lombok.Data;
 @Data
 @Entity
 public class Registration {
-	
-    @EmbeddedId
+
+	@EmbeddedId
 	private RegistrationPK id;
-    
+
 	@ManyToOne
-	//referenceColumnName id is studnet table property
-	//student_id is RegistrationPK of property so this student_id is cannot be insert or update
-	@JoinColumn(name = "student_id", referencedColumnName = "id", insertable=false, updatable=false)
+	// referenceColumnName id is studnet table property
+	// student_id is RegistrationPK of property so this student_id is cannot be
+	// insert or update
+	@JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private Student student;
-	
+
 	@ManyToOne
-	@JoinColumn(name="course_id", referencedColumnName = "course_id", insertable=false, updatable=false)
-	@JoinColumn(name="start_at", referencedColumnName = "start_at", insertable=false, updatable=false)
+	@JoinColumn(name = "course_id", referencedColumnName = "course_id", insertable = false, updatable = false)
+	@JoinColumn(name = "start_at", referencedColumnName = "start_at", insertable = false, updatable = false)
 	private Section section;
-	
+
 	private LocalDateTime registAt;
 
 	public Registration(RegistrationPK id, Student student, Section section, LocalDateTime registAt) {

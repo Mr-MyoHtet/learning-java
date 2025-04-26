@@ -15,7 +15,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 @Repository
-public class CourseRepoCriteria implements CourseRepo{
+public class CourseRepoCriteria implements CourseRepo {
 
     @PersistenceContext
     private EntityManager em;
@@ -23,14 +23,14 @@ public class CourseRepoCriteria implements CourseRepo{
     @Override
     public List<Course> findAll() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        //This is result class
+        // This is result class
         CriteriaQuery<Course> cq = cb.createQuery(Course.class);
 
-        //This is Entity class 
-        //from Course c
+        // This is Entity class
+        // from Course c
         Root<Course> c = cq.from(Course.class);
-        
-        //select c
+
+        // select c
         cq.select(c);
 
         TypedQuery<Course> query = em.createQuery(cq);
@@ -40,7 +40,7 @@ public class CourseRepoCriteria implements CourseRepo{
     @Override
     public List<String> findAllNames() {
         CriteriaBuilder cb = em.getCriteriaBuilder();
-        //လိုချင်တဲ. result type
+        // လိုချင်တဲ. result type
         CriteriaQuery<String> cq = cb.createQuery(String.class);
 
         Root<Course> c = cq.from(Course.class);
@@ -57,9 +57,9 @@ public class CourseRepoCriteria implements CourseRepo{
 
         Root<Course> c = cq.from(Course.class);
         cq.select(cb.count(c.get("id")));
-        
+
         TypedQuery<Long> query = em.createQuery(cq);
-       return query.getSingleResult();
+        return query.getSingleResult();
     }
 
     @Override
@@ -69,9 +69,9 @@ public class CourseRepoCriteria implements CourseRepo{
 
         Root<Course> c = cq.from(Course.class);
         cq.select(cb.avg(c.get("hours")));
-        
+
         TypedQuery<Double> query = em.createQuery(cq);
-       return query.getSingleResult();
+        return query.getSingleResult();
     }
 
     @Override
@@ -81,9 +81,9 @@ public class CourseRepoCriteria implements CourseRepo{
 
         Root<Course> c = cq.from(Course.class);
         cq.select(cb.sum(c.get("fees")));
-        
+
         TypedQuery<Long> query = em.createQuery(cq);
-       return query.getSingleResult();
+        return query.getSingleResult();
     }
 
     @Override
@@ -91,14 +91,13 @@ public class CourseRepoCriteria implements CourseRepo{
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<CourseDto> cq = cb.createQuery(CourseDto.class);
 
-        Root<Course> root= cq.from(Course.class);
+        Root<Course> root = cq.from(Course.class);
         cq.multiselect(
-            root.get("id"),
-            root.get("name"),
-            root.get("fees")
-        );
+                root.get("id"),
+                root.get("name"),
+                root.get("fees"));
         TypedQuery<CourseDto> query = em.createQuery(cq);
         return query.getResultList();
     }
-    
+
 }

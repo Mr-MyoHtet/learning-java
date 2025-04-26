@@ -1,4 +1,5 @@
 package com.query;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,26 +12,26 @@ public class StudentRepoTest {
 
     @Autowired
     private StudentRepoJpql studentRepoJpql;
-    
+
     @Autowired
     private StudentRepoCriteria studentRepoCriteria;
 
     @Test
-    void findByPhone(){
-     var result1 = studentRepoJpql.findByPhone("09978961902");
-     System.out.println(result1);
+    void findByPhone() {
+        var result1 = studentRepoJpql.findByPhone("09978961902");
+        System.out.println(result1);
 
-     var result2 = studentRepoCriteria.findByPhone("09978961902");
-     System.out.println(result2);
+        var result2 = studentRepoCriteria.findByPhone("09978961902");
+        System.out.println(result2);
     }
-    
+
     @Test
-    void findByKeyWord(){
-     var result1 = studentRepoJpql.findByKeyWord("w");
-     System.out.println(result1);
+    void findByKeyWord() {
+        var result1 = studentRepoJpql.findByKeyWord("w");
+        System.out.println(result1);
 
-     var result2 = studentRepoCriteria.findByKeyWord("w");
-     System.out.println(result2);
+        var result2 = studentRepoCriteria.findByKeyWord("w");
+        System.out.println(result2);
     }
-    
+
 }
