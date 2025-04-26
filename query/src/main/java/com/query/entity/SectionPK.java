@@ -7,10 +7,10 @@ import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class SectionPK {
-    
+
 	@Column(name = "course_id")
 	private int courseId;
-	
+
 	@Column(name = "start_at")
 	private LocalDate startAt;
 
@@ -34,6 +34,10 @@ public class SectionPK {
 		super();
 		this.courseId = courseId;
 		this.startAt = startAt;
+	}
+
+	public SectionPK() {
+
 	}
 
 }

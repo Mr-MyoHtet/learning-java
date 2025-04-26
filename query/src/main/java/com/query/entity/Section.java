@@ -12,18 +12,23 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import lombok.Data;
 
 @Data
 @Entity
+@NamedQuery(name = "Section.searchFees", query = "select s from Section s where s.fees <= :fees")
+@NamedQuery(name = "Section.searchFessUsingSectionDto", query = """
+		 select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+		from Section s where s.fees <= :fees""")
 public class Section {
 	@EmbeddedId
 	private SectionPK id;
 
 	@ManyToOne
-	//@JoinColumn(name = "course_id", ) is the Course table の　course_id
+	// @JoinColumn(name = "course_id", ) is the Course table の course_id
 	@JoinColumn(name = "course_id", insertable = false, updatable = false)
-	private Course course;
+	public Course course;
 
 	// @ElementCollection
 	@Convert(converter = DaysConvector.class)
@@ -43,6 +48,10 @@ public class Section {
 		this.endTime = endTime;
 		this.endAt = endAt;
 		this.fees = fees;
+	}
+
+	public Section() {
+
 	}
 
 	public SectionPK getId() {

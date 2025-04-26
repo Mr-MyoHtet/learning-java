@@ -32,5 +32,24 @@ public class StudentRepoCriteria implements StudentRepo{
         TypedQuery<Student> query= em.createQuery(cq);
         return query.getResultList();
     }
+
+    @Override
+    public List<Student> findByKeyWord(String keyword) { 
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Student> cq = cb.createQuery(Student.class);
+        
+        Root<Student> root = cq.from(Student.class);
+        cq.select(root);
+
+        var criteria = cb.or(
+            cb.like(cb.lower(root.get("name")), keyword.toLowerCase().concat("%")),
+            cb.like(cb.lower(root.get("email")), keyword.toLowerCase().concat("%")),
+            cb.like(cb.lower(root.get("phone")), keyword.toLowerCase().concat("%"))
+        );
+        cq.where(criteria);
+
+        TypedQuery<Student> query = em.createQuery(cq);
+        return query.getResultList();
+    }
     
 }

@@ -10,12 +10,12 @@ import lombok.Data;
 
 @Entity
 @Data
-@NamedQuery(name = "Course.All",query = "select c from Course c")
-@NamedQuery(name="Course.getAllNames",query = "select c.name from Course c")
-@NamedQuery(name="Course.CountAll", query = "select count(c.id) from Course c")
-@NamedQuery(name="Course.findAverageHours",query = "select avg(c.hours) from Course c")
-@NamedQuery(name = "Course.findSumfees",query = "select sum(c.fees) from Course c")
-@NamedQuery(name="Course.findCourseDto",query = "select new com.query.entity.dto.CourseDto(c.id,c.name,c.fees) from Course c")
+@NamedQuery(name = "Course.All", query = "select c from Course c")
+@NamedQuery(name = "Course.getAllNames", query = "select c.name from Course c")
+@NamedQuery(name = "Course.CountAll", query = "select count(c.id) from Course c")
+@NamedQuery(name = "Course.findAverageHours", query = "select avg(c.hours) from Course c")
+@NamedQuery(name = "Course.findSumfees", query = "select sum(c.fees) from Course c")
+@NamedQuery(name = "Course.findCourseDto", query = "select new com.query.entity.dto.CourseDto(c.id,c.name,c.fees) from Course c")
 public class Course {
 
 	@Id
@@ -24,10 +24,9 @@ public class Course {
 	private String name;
 	private int hours;
 	private int fees;
-	
+
 	public Course() {
 	}
-
 
 	public Course(int id, String name, int hours, int fees) {
 		super();
@@ -69,12 +68,9 @@ public class Course {
 		this.fees = fees;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Course [id=" + id + ", name=" + name + ", hours=" + hours + ", fees=" + fees + "]";
 	}
-
-
 
 }

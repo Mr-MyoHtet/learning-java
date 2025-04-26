@@ -24,4 +24,13 @@ public class StudentRepoTest {
      System.out.println(result2);
     }
     
+    @Test
+    void findByKeyWord(){
+     var result1 = studentRepoJpql.findByKeyWord("w");
+     System.out.println(result1);
+
+     var result2 = studentRepoCriteria.findByKeyWord("w");
+     System.out.println(result2);
+    }
+    
 }

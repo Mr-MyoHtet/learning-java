@@ -22,5 +22,12 @@ public class StudentRepoJpql implements StudentRepo{
        query.setParameter(1, phone);
        return query.getResultList();
     }
+
+    @Override
+    public List<Student> findByKeyWord(String keyword) {
+       var query = em.createNamedQuery("Student.findByKeyWord",Student.class);
+       query.setParameter("keyword", keyword.toLowerCase().concat("%"));
+       return query.getResultList();
+    }
     
 }
