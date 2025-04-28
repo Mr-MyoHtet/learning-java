@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.query.entity.Section;
 import com.query.entity.dto.SectionDto;
+import com.query.entity.dto.SectionWithStudents;
 import com.query.repo.SectionRepo;
 
 import jakarta.persistence.EntityManager;
@@ -13,6 +14,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
 
 @Repository
@@ -73,6 +75,25 @@ public class SectionRepoCriteria implements SectionRepo {
         cq.where(root.get("startTime").in(startTimes));
         TypedQuery<SectionDto> query = em.createQuery(cq);
         return query.getResultList();
+    }
+
+    // ManyToOne
+    @Override
+    public List<SectionWithStudents> searchOverStudents(long students) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<SectionWithStudents> cq = cb.createQuery(SectionWithStudents.class);
+
+        Root<Section> root = cq.from(Section.class);
+        SectionWithStudents.select(cb, cq, root);
+
+        var registration = root.join("registration", JoinType.LEFT);
+        var student = registration.join("student", JoinType.LEFT);
+
+        cq.having(cb.ge(cb.count(student.get("id")), students));
+
+        cq.orderBy(cb.desc(cb.count(student.get("id"))));
+        // TypedQuery<SectionWithStudents> query = em.createQuery(cq);
+        return em.createQuery(cq).getResultList();
     }
 
 }

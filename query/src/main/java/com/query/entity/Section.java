@@ -6,31 +6,65 @@ import java.util.List;
 
 import com.query.entity.convector.DaysConvector;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Data
 @Entity
-@NamedQuery(name = "Section.searchFees", query = "select s from Section s where s.fees <= :fees")
+// @NamedQuery(name = "Section.searchFees", query = "select s from Section s
+// where s.fees <= :fees")
+// @NamedQuery(name = "Section.searchFessUsingSectionDto", query = """
+// select new
+// com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+// from Section s where s.fees <= :fees""")
+// // s.id.StartAt id is from SectionPK ,SectionPk has startAt
+// @NamedQuery(name = "Section.searchDateBetween", query = """
+// select new
+// com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+// from Section s where s.id.startAt between :from and :to
+// """)
+
+// @NamedQuery(name = "Section.searchStartTimeIn", query = """
+// select new
+// com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
+// from Section s where s.startTime in :list
+// """)
 @NamedQuery(name = "Section.searchFessUsingSectionDto", query = """
-		 select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
-		from Section s where s.fees <= :fees""")
+		 select  new com.query.entity.dto.SectionDto(s.id,c.hours,s.endAt,s.startTime,s.endTime,c.name,s.fees,s.days)
+		from Section s left join s.course c
+		 where s.fees <= :fees""")
 // s.id.StartAt id is from SectionPK ,SectionPk has startAt
 @NamedQuery(name = "Section.searchDateBetween", query = """
-		 select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
-		from Section s where s.id.startAt between :from and :to
+		 select  new com.query.entity.dto.SectionDto(s.id,c.hours,s.endAt,s.startTime,s.endTime,c.name,s.fees,s.days)
+		from Section s left join s.course c
+		where s.id.startAt between :from and :to
 				""")
-
+// left join s.course course is column name
 @NamedQuery(name = "Section.searchStartTimeIn", query = """
-		        select  new com.query.entity.dto.SectionDto(s.id,s.course.hours,s.endAt,s.startTime,s.endTime,s.course.name,s.fees,s.days)
-		from Section s where  s.startTime in :list
+		        select  new com.query.entity.dto.SectionDto(s.id,c.hours,s.endAt,s.startTime,s.endTime,c.name,s.fees,s.days)
+		from Section s left join s.course c
+		where  s.startTime in :list
 		""")
+// ManyToOne
+@NamedQuery(name = "Section.searchOverStudents", query = """
+		    select new com.query.entity.dto.SectionWithStudents(
+		        s.id, s.endAt, c.name, count(st.id)
+		    )
+		    from Section s
+		    left join s.course c
+		    left join s.registration r
+		    left join r.student st
+		    group by s.id, s.endAt, c.name
+		    having count(st.id) >= :students
+		    order by count(st.id) desc
+		""")
+
 public class Section {
 	@EmbeddedId
 	private SectionPK id;
@@ -40,6 +74,10 @@ public class Section {
 	// automatically.
 	// You are saying "the course_id is already managed somewhere else (maybe inside
 	// SectionPK)".
+	// =====================================================
+	// @ManyToOne(optional = false)
+	// optional falseက course မရိရင် section မရိတဲ.သဘော
+	// ======================================================
 	@ManyToOne
 	@JoinColumn(name = "course_id", insertable = false, updatable = false)
 	public Course course;
@@ -51,6 +89,9 @@ public class Section {
 	private String endTime;
 	private LocalDate endAt;
 	private int fees;
+
+	@OneToMany(mappedBy = "section")
+	private List<Registration> registration;
 
 	public Section(SectionPK id, Course course, List<DayOfWeek> days, String startTime, String endTime, LocalDate endAt,
 			int fees) {

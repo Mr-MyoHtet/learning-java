@@ -32,10 +32,10 @@ public class SectionRepoTest {
     @Test
     void searchFessUsingSectionDto() {
         var result1 = sectionRepoJpql.searchFessUsingSectionDto(200000);
-        System.out.println(result1);
+        result1.forEach(System.out::println);
 
         var result2 = sectionRepoCriteria.searchFessUsingSectionDto(200000);
-        System.out.println(result2);
+        result2.forEach(System.out::println);
     }
 
     @Test
@@ -56,6 +56,16 @@ public class SectionRepoTest {
         result1.forEach(System.out::println);
 
         var result2 = sectionRepoCriteria.searchStartTimeIn(list);
+        result2.forEach(System.out::println);
+    }
+
+    // ManyToOne
+    @Test
+    void test() {
+        var result1 = sectionRepoJpql.searchOverStudents(20);
+        result1.forEach(System.out::println);
+
+        var result2 = sectionRepoCriteria.searchOverStudents(20);
         result2.forEach(System.out::println);
     }
 

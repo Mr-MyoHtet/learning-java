@@ -4,8 +4,10 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import lombok.ToString;
 
 @Embeddable
+@ToString
 public class SectionPK {
 
 	@Column(name = "course_id")

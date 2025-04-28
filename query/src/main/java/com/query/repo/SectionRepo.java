@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.query.entity.Section;
 import com.query.entity.dto.SectionDto;
+import com.query.entity.dto.SectionWithStudents;
 
 public interface SectionRepo {
 
@@ -15,5 +16,7 @@ public interface SectionRepo {
     List<SectionDto> searchDateBetween(LocalDate from, LocalDate to);
 
     List<SectionDto> searchStartTimeIn(List<String> startTimes);
+
+    List<SectionWithStudents> searchOverStudents(long students);
 
 }

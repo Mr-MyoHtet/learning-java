@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.query.entity.Section;
 import com.query.entity.dto.SectionDto;
+import com.query.entity.dto.SectionWithStudents;
 import com.query.repo.SectionRepo;
 
 import jakarta.persistence.EntityManager;
@@ -44,6 +45,13 @@ public class SectionRepoJpql implements SectionRepo {
     public List<SectionDto> searchStartTimeIn(List<String> startTimes) {
         var query = em.createNamedQuery("Section.searchStartTimeIn", SectionDto.class);
         query.setParameter("list", startTimes);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<SectionWithStudents> searchOverStudents(long students) {
+        var query = em.createNamedQuery("Section.searchOverStudents", SectionWithStudents.class);
+        query.setParameter("students", students);
         return query.getResultList();
     }
 
