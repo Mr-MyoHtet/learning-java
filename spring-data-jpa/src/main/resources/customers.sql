@@ -1,0 +1,2 @@
+insert into customer (last_modified_at,email,name,phone) values('2024-04-10','myo@gmail.com','myo','08087382324');
+insert into customer (last_modified_at,email,name,phone) values('2024-04-10','myohtet@gmail.com','myohtet','080873823241');
